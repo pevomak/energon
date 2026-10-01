@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="cs" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Panels s.r.o. | Energon Center</title>
+    <meta name="description" content="Photo Panels s.r.o. – státní infrastruktura, velké energetické celky, FVE a zakázkový software na energon.center.">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0fdf4',
+                            500: '#16a34a',
+                            600: '#15803d',
+                            700: '#166534',
+                            900: '#052e16'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- Vanta.js / Three.js CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.cells.min.js"></script>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased selection:bg-emerald-600 selection:text-white" x-data="{ tab: 'page1', gdprModal: false }">
+
+    <!-- Vanta Background Container -->
+    <div id="vanta-bg" class="fixed inset-0 pointer-events-none z-0 opacity-40"></div>
+
+    <!-- Top Navigation (Light design, sharp corners, compact) -->
+    <header class="sticky top-0 z-50 backdrop-blur-md bg-white/90 border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between relative z-10">
+            <div class="flex items-center space-x-2.5">
+                <div class="h-8 w-8 bg-emerald-600 flex items-center justify-center text-white text-sm font-bold">
+                    <i class="fa-solid fa-industry"></i>
+                </div>
+                <div>
+                    <span class="text-base font-bold tracking-tight text-slate-900">Photo Panels <span class="text-emerald-600">s.r.o.</span></span>
+                    <span class="block text-[10px] text-slate-500 font-mono">energon.center</span>
+                </div>
+            </div>
+
+            <!-- Page Switcher (Sharp corners, light style) -->
+            <nav class="hidden sm:flex space-x-1 bg-slate-100 p-1 border border-slate-200">
+                <button @click="tab = 'page1'" :class="{ 'bg-emerald-600 text-white shadow-sm': tab === 'page1', 'text-slate-600 hover:text-slate-900': tab !== 'page1' }" class="px-4 py-1.5 text-[11px] font-semibold uppercase tracking-wider transition-all">
+                    1. Firemní fakta & Valuace
+                </button>
+                <button @click="tab = 'page2'" :class="{ 'bg-emerald-600 text-white shadow-sm': tab === 'page2', 'text-slate-600 hover:text-slate-900': tab !== 'page2' }" class="px-4 py-1.5 text-[11px] font-semibold uppercase tracking-wider transition-all">
+                    2. Státní infrastruktura & Poradenství
+                </button>
+            </nav>
+
+            <div class="flex items-center">
+                <a href="mailto:info@energon.center" class="inline-flex items-center px-3.5 py-1.5 text-xs font-semibold bg-white text-slate-700 border border-slate-300 hover:bg-slate-50 transition">
+                    <i class="fa-solid fa-envelope mr-1.5 text-emerald-600"></i>info@energon.center
+                </a>
+            </div>
+        </div>
+
+        <!-- Mobile Switcher -->
+        <div class="sm:hidden flex border-t border-slate-200 bg-slate-100 relative z-10">
+            <button @click="tab = 'page1'" :class="{ 'border-b-2 border-emerald-600 text-emerald-700 bg-white font-bold': tab === 'page1', 'text-slate-600': tab !== 'page1' }" class="flex-1 py-2.5 text-center text-[11px]">
+                1. Fakta & Valuace
+            </button>
+            <button @click="tab = 'page2'" :class="{ 'border-b-2 border-emerald-600 text-emerald-700 bg-white font-bold': tab === 'page2', 'text-slate-600': tab !== 'page2' }" class="flex-1 py-2.5 text-center text-[11px]">
+                2. Infrastruktura
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10">
+
+        <!-- ================= PAGE 1: PRACTICAL FACTS & FINANCIAL VALUATION ================= -->
+        <div x-show="tab === 'page1'" x-transition.opacity.duration.300 class="space-y-6">
+            
+            <!-- Section Header -->
+            <div class="border-b border-slate-200 pb-4">
+                <span class="inline-flex items-center px-2.5 py-0.5 text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 mb-2">
+                    <i class="fa-solid fa-shield-halved mr-1"></i> Oficiální data z rejstříku
+                </span>
+                <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-950 tracking-tight">Praktická fakta o společnosti & Tržní odhad hodnoty</h1>
+                <p class="mt-1 text-slate-600 text-xs sm:text-sm">Konsolidovaný přehled kapitálu, registrace a struktury společnosti Photo Panels s.r.o. pro energon.center.</p>
+            </div>
+
+            <!-- Key Metrics Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="bg-white border border-slate-200 p-5 shadow-sm">
+                    <span class="text-[10px] font-bold tracking-wider text-slate-500 uppercase">Základní kapitál</span>
+                    <div class="mt-1.5 text-xl font-extrabold text-slate-950">2 000 000 Kč</div>
+                    <span class="inline-flex items-center text-[11px] font-semibold text-emerald-600 mt-1">
+                        <i class="fa-solid fa-circle-check mr-1"></i> Splaceno 100%
+                    </span>
+                </div>
+
+                <div class="bg-white border border-slate-200 p-5 shadow-sm">
+                    <span class="text-[10px] font-bold tracking-wider text-slate-500 uppercase">Odhadovaná hodnota firmy</span>
+                    <div class="mt-1.5 text-xl font-extrabold text-emerald-700">4,2 – 6,5 mil. Kč</div>
+                    <span class="inline-flex items-center text-[11px] font-semibold text-slate-500 mt-1">
+                        <i class="fa-solid fa-chart-line mr-1"></i> Kapitál + Infrastrukturní know-how
+                    </span>
+                </div>
+
+                <div class="bg-white border border-slate-200 p-5 shadow-sm">
+                    <span class="text-[10px] font-bold tracking-wider text-slate-500 uppercase">Datum vzniku & zápisu</span>
+                    <div class="mt-1.5 text-xl font-extrabold text-slate-950">21. 4. 2026</div>
+                    <span class="inline-flex items-center text-[11px] font-semibold text-slate-500 mt-1">
+                        <i class="fa-solid fa-building-columns mr-1"></i> Městský soud v Praze
+                    </span>
+                </div>
+
+                <div class="bg-white border border-slate-200 p-5 shadow-sm">
+                    <span class="text-[10px] font-bold tracking-wider text-slate-500 uppercase">Identifikační číslo (IČO)</span>
+                    <div class="mt-1.5 text-xl font-extrabold text-slate-950">249 07 847</div>
+                    <span class="inline-flex items-center text-[11px] font-semibold text-slate-500 mt-1">
+                        <i class="fa-solid fa-id-badge mr-1"></i> Spisová značka: C 445693
+                    </span>
+                </div>
+            </div>
+
+            <!-- Detailed Corporate Data & Financial Health -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                
+                <!-- Company Data Card -->
+                <div class="lg:col-span-2 bg-white border border-slate-200 p-6 shadow-sm">
+                    <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wide mb-4 flex items-center">
+                        <i class="fa-solid fa-file-lines text-emerald-600 mr-2"></i> Detailní údaje společnosti
+                    </h3>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-6 text-xs">
+                        <div class="border-b border-slate-100 pb-2.5">
+                            <span class="block text-slate-500 font-semibold uppercase text-[10px]">Obchodní firma</span>
+                            <span class="text-slate-900 font-bold mt-0.5 block">Photo Panels s.r.o.</span>
+                        </div>
+                        <div class="border-b border-slate-100 pb-2.5">
+                            <span class="block text-slate-500 font-semibold uppercase text-[10px]">Právní forma</span>
+                            <span class="text-slate-900 font-bold mt-0.5 block">Společnost s ručením omezeným</span>
+                        </div>
+                        <div class="border-b border-slate-100 pb-2.5">
+                            <span class="block text-slate-500 font-semibold uppercase text-[10px]">Sídlo společnosti</span>
+                            <span class="text-slate-900 font-bold mt-0.5 block">Rybná 716/24, Staré Město, 110 00 Praha 1</span>
+                        </div>
+                        <div class="border-b border-slate-100 pb-2.5">
+                            <span class="block text-slate-500 font-semibold uppercase text-[10px]">Statutární orgán / Jednatel</span>
+                            <span class="text-slate-900 font-bold mt-0.5 block">Ivan Koňakovský</span>
+                            <span class="text-slate-500 text-[11px]">Doležalova 3424/15C, 82104 Bratislava, SR</span>
+                        </div>
+                        <div class="border-b border-slate-100 pb-2.5">
+                            <span class="block text-slate-500 font-semibold uppercase text-[10px]">Společník & Vklad</span>
+                            <span class="text-slate-900 font-bold mt-0.5 block">Ivan Koňakovský (100% podíl)</span>
+                            <span class="text-slate-500 text-[11px]">Vklad: 2 000 000,- Kč (splaceno 100%)</span>
+                        </div>
+                        <div class="border-b border-slate-100 pb-2.5">
+                            <span class="block text-slate-500 font-semibold uppercase text-[10px]">Způsob jednání</span>
+                            <span class="text-slate-900 font-bold mt-0.5 block">Jednatel zastupuje společnost samostatně.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Financial Health Card -->
+                <div class="bg-white border border-slate-200 p-6 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wide mb-3 flex items-center">
+                            <i class="fa-solid fa-scale-balanced text-emerald-600 mr-2"></i> Finanční stabilita
+                        </h3>
+                        <p class="text-[11px] text-slate-600 leading-relaxed mb-4">
+                            Kapitálová přiměřenost 2 mil. Kč plně splacená jedním společníkem zajišťuje vysokou bonitu pro účast ve výběrových řízeních státní správy.
+                        </p>
+
+                        <div class="space-y-3 text-xs">
+                            <div class="bg-slate-50 p-3 border border-slate-200">
+                                <div class="flex justify-between text-slate-500 mb-1 text-[11px]">
+                                    <span>Základní vklad</span>
+                                    <span class="text-slate-900 font-bold">2 000 000 Kč</span>
+                                </div>
+                                <div class="w-full bg-slate-200 h-1.5 overflow-hidden">
+                                    <div class="bg-emerald-600 h-full w-full"></div>
+                                </div>
+                            </div>
+                            <div class="bg-slate-50 p-3 border border-slate-200">
+                                <div class="flex justify-between text-slate-500 mb-1 text-[11px]">
+                                    <span>Infrastrukturní bonita</span>
+                                    <span class="text-emerald-700 font-bold">Vysoká (G2B)</span>
+                                </div>
+                                <div class="w-full bg-slate-200 h-1.5 overflow-hidden">
+                                    <div class="bg-emerald-600 h-full w-4/5"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 pt-3 border-t border-slate-200 text-[11px] text-slate-500 flex justify-between items-center">
+                        <span>Aktualizováno: 1. 10. 2026</span>
+                        <span class="text-emerald-600 font-semibold"><i class="fa-solid fa-circle text-[6px] mr-1"></i> Aktivní</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Free and Written Živnosti (Trade Licenses) -->
+            <div class="bg-white border border-slate-200 p-6 shadow-sm">
+                <div class="mb-4">
+                    <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wide flex items-center">
+                        <i class="fa-solid fa-certificate text-emerald-600 mr-2"></i> Předmět podnikání & Živnostenská oprávnění
+                    </h3>
+                    <p class="text-xs text-slate-500 mt-0.5">Výroba, obchod a služby neuvedené v přílohách 1 až 3 živnostenského zákona</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
+                    <div class="bg-slate-50 p-3.5 border border-slate-200">
+                        <div class="text-emerald-600 mb-1.5"><i class="fa-solid fa-hammer"></i></div>
+                        <h4 class="font-bold text-slate-900 mb-1">Stavební činnosti</h4>
+                        <p class="text-slate-600 text-[11px]">Přípravné a dokončovací stavební práce, specializované stavební činnosti pro energetická díla.</p>
+                    </div>
+
+                    <div class="bg-slate-50 p-3.5 border border-slate-200">
+                        <div class="text-emerald-600 mb-1.5"><i class="fa-solid fa-store"></i></div>
+                        <h4 class="font-bold text-slate-900 mb-1">Obchod & Zprostředkování</h4>
+                        <p class="text-slate-600 text-[11px]">Zprostředkování obchodu a služeb, velkoobchod a maloobchod s technologickými celky.</p>
+                    </div>
+
+                    <div class="bg-slate-50 p-3.5 border border-slate-200">
+                        <div class="text-emerald-600 mb-1.5"><i class="fa-solid fa-building"></i></div>
+                        <h4 class="font-bold text-slate-900 mb-1">Nemovitosti & Správa</h4>
+                        <p class="text-slate-600 text-[11px]">Nákup, prodej, správa a údržba nemovitostí. Pronájem nemovitostí, bytů a nebytových prostor.</p>
+                    </div>
+
+                    <div class="bg-slate-50 p-3.5 border border-slate-200">
+                        <div class="text-emerald-600 mb-1.5"><i class="fa-solid fa-microchip"></i></div>
+                        <h4 class="font-bold text-slate-900 mb-1">Poradenství & Technika</h4>
+                        <p class="text-slate-600 text-[11px]">Poradenská a konzultační činnost, studie, posudky, poskytování technických služeb a správa.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- ================= PAGE 2: STATE INFRASTRUCTURE & FULL ADVISORY ================= -->
+        <div x-show="tab === 'page2'" x-transition.opacity.duration.300 class="space-y-6" style="display: none;">
+            
+            <!-- Header -->
+            <div class="border-b border-slate-200 pb-4">
+                <span class="inline-flex items-center px-2.5 py-0.5 text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 mb-2">
+                    <i class="fa-solid fa-city mr-1"></i> Státní infrastruktura & Poradenství
+                </span>
+                <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-950 tracking-tight">Zákaznická řešení, instalace a odborné poradenství</h1>
+                <p class="mt-1 text-slate-600 text-xs sm:text-sm">Komplexní portál pro státní správu a velkoobjemové projekty. Plně podložené licencemi z obchodního rejstříku.</p>
+            </div>
+
+            <!-- Pillars of Services based on Licenses -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                
+                <!-- Pillar 1 -->
+                <div class="bg-white border border-slate-200 p-5 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="h-9 w-9 bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-700 mb-4">
+                            <i class="fa-solid fa-solar-panel text-sm"></i>
+                        </div>
+                        <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wide mb-2">Infrastruktura & Velké FVE</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                            Realizace velkých fotovoltaických celků a napojení na státní kritickou infrastrukturu. Využívá živnost stavebních prací a velkoobchodu.
+                        </p>
+                        <ul class="space-y-1.5 text-[11px] text-slate-700 mb-6">
+                            <li class="flex items-center"><i class="fa-solid fa-check text-emerald-600 mr-2"></i> Studie proveditelnosti pro G2B</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-emerald-600 mr-2"></i> Stavební připravenost a montáž</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-emerald-600 mr-2"></i> Vysokokapacitní úložiště</li>
+                        </ul>
+                    </div>
+                    <a href="mailto:info@energon.center" class="w-full py-2 px-3 bg-slate-900 hover:bg-emerald-700 text-white text-xs font-semibold text-center transition">
+                        Poptat velkou instalaci <i class="fa-solid fa-arrow-right ml-1.5 text-[10px]"></i>
+                    </a>
+                </div>
+
+                <!-- Pillar 2 -->
+                <div class="bg-white border border-slate-200 p-5 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="h-9 w-9 bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-700 mb-4">
+                            <i class="fa-solid fa-network-wired text-sm"></i>
+                        </div>
+                        <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wide mb-2">Servis & Správa nemovitostí</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                            Nonstop technický dohled, revize a údržba budov. Využívá živnosti správy nemovitostí, technických služeb a pronájmu prostor.
+                        </p>
+                        <ul class="space-y-1.5 text-[11px] text-slate-700 mb-6">
+                            <li class="flex items-center"><i class="fa-solid fa-check text-emerald-600 mr-2"></i> Preventivní servisní zásahy</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-emerald-600 mr-2"></i> Správa a údržba celků</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-emerald-600 mr-2"></i> Technická bezpečnost</li>
+                        </ul>
+                    </div>
+                    <a href="mailto:info@energon.center" class="w-full py-2 px-3 bg-slate-900 hover:bg-emerald-700 text-white text-xs font-semibold text-center transition">
+                        Sjednat servisní smlouvu <i class="fa-solid fa-arrow-right ml-1.5 text-[10px]"></i>
+                    </a>
+                </div>
+
+                <!-- Pillar 3 -->
+                <div class="bg-white border border-slate-200 p-5 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="h-9 w-9 bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-700 mb-4">
+                            <i class="fa-solid fa-code text-sm"></i>
+                        </div>
+                        <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wide mb-2">Tailored SW & Green Tech</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                            Zakázkový software pro řízení energetických toků a odborné posudky. Založeno na poradenské činnosti a zpracování studií.
+                        </p>
+                        <ul class="space-y-1.5 text-[11px] text-slate-700 mb-6">
+                            <li class="flex items-center"><i class="fa-solid fa-check text-emerald-600 mr-2"></i> Řídicí dispečerské systémy</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-emerald-600 mr-2"></i> Odborné studie a posudky</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-emerald-600 mr-2"></i> Poradenství pro ESG a úspory</li>
+                        </ul>
+                    </div>
+                    <a href="mailto:info@energon.center" class="w-full py-2 px-3 bg-slate-900 hover:bg-emerald-700 text-white text-xs font-semibold text-center transition">
+                        Poptat SW řešení <i class="fa-solid fa-arrow-right ml-1.5 text-[10px]"></i>
+                    </a>
+                </div>
+
+            </div>
+
+            <!-- Advisory Based on Trade Licenses (Zivnosti) -->
+            <div class="bg-white border border-slate-200 p-6 shadow-sm">
+                <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wide mb-3 flex items-center">
+                    <i class="fa-solid fa-book-open text-emerald-600 mr-2"></i> Odborné poradenství a vazba na data společnosti
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-slate-600 leading-relaxed">
+                    <div class="bg-slate-50 p-4 border border-slate-200">
+                        <strong class="text-slate-900 block mb-1">Právní a živnostenský rámec poradenství:</strong>
+                        Všechny poradenské služby (zpracování odborných studií, posudků a konzultací) jsou zastřešeny platnou živností <em>„Poradenská a konzultační činnost, zpracování odborných studií a posudků“</em> zapsanou v obchodním rejstříku.
+                    </div>
+                    <div class="bg-slate-50 p-4 border border-slate-200">
+                        <strong class="text-slate-900 block mb-1">G2B a státní zakázky:</strong>
+                        Díky základnímu kapitálu 2 000 000 Kč splacenému v plné výši jednatelem Ivanem Koňakovským disponuje Photo Panels s.r.o. silnou finanční stabilitou pro dlouhodobé projekty v oblasti státní infrastruktury.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Direct Contact Box -->
+            <div class="bg-white border border-slate-200 p-6 shadow-sm text-center max-w-2xl mx-auto space-y-3">
+                <div class="h-10 w-10 bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center justify-center mx-auto text-base">
+                    <i class="fa-solid fa-envelope-open-text"></i>
+                </div>
+                <h3 class="text-base font-bold text-slate-900">Přímá poptávka pro státní správu & partnery</h3>
+                <p class="text-xs text-slate-600 max-w-md mx-auto">
+                    Veškeré požadavky na velkoobjemové instalace a servis vyřizujeme prostřednictvím oficiálního komunikačního kanálu.
+                </p>
+                <div>
+                    <a href="mailto:info@energon.center" class="inline-flex items-center px-5 py-2.5 bg-emerald-700 hover:bg-emerald-800 text-white font-semibold text-xs transition shadow-sm">
+                        <i class="fa-solid fa-paper-plane mr-2"></i> info@energon.center
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer id="kontakt" class="bg-white border-t border-slate-200 mt-12 py-8 relative z-10 text-xs text-slate-600">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                <div>
+                    <span class="font-bold text-slate-900 text-sm block mb-1.5">Photo Panels s.r.o.</span>
+                    <p class="text-slate-500">Energon Center — státní infrastruktura, velké celky a zakázkový software.</p>
+                </div>
+                <div>
+                    <span class="font-bold text-slate-900 text-sm block mb-1.5">Sídlo & Rejstřík</span>
+                    <p class="text-slate-500">Rybná 716/24, Staré Město, 110 00 Praha 1<br>Spisová značka: C 445693 u MS v Praze<br>IČO: 249 07 847</p>
+                </div>
+                <div>
+                    <span class="font-bold text-slate-900 text-sm block mb-1.5">Statutární orgán & Kontakt</span>
+                    <p class="text-slate-500">Ivan Koňakovský (jednatel)<br>Doležalova 3424/15C, 82104 Bratislava, SR<br>Email: <a href="mailto:info@energon.center" class="text-emerald-700 hover:underline">info@energon.center</a></p>
+                </div>
+            </div>
+            
+            <div class="border-t border-slate-200 pt-4 flex flex-col sm:flex-row items-center justify-between text-[11px] text-slate-500">
+                <p>&copy; 2026 Photo Panels s.r.o. Všechna práva vyhrazena. | energon.center</p>
+                <div class="flex space-x-4 mt-3 sm:mt-0">
+                    <button @click="gdprModal = true" class="hover:text-slate-900 transition cursor-pointer">Ochrana osobních údajů (GDPR)</button>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- GDPR Modal -->
+    <div x-show="gdprModal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/50 backdrop-blur-sm p-4" style="display: none;">
+        <div @click.away="gdprModal = false" class="bg-white border border-slate-200 max-w-lg w-full p-6 shadow-xl relative">
+            <button @click="gdprModal = false" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700">
+                <i class="fa-solid fa-xmark text-base"></i>
+            </button>
+            <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wide mb-3 flex items-center">
+                <i class="fa-solid fa-shield-cat text-emerald-600 mr-2"></i> Ochrana osobních údajů & GDPR
+            </h3>
+            <div class="text-xs text-slate-600 space-y-2.5 leading-relaxed">
+                <p>Společnost <strong>Photo Panels s.r.o.</strong>, se sídlem Rybná 716/24, Staré Město, 110 00 Praha 1, IČO: 249 07 847, zpracovává osobní údaje v souladu s nařízením EU 2016/679 (GDPR).</p>
+                <p>Veškerá komunikace prostřednictvím e-mailu <strong>info@energon.center</strong> slouží výhradně pro účely B2B a G2B spolupráce (státní infrastruktura, velké energetické projekty a zakázkový software).</p>
+                <p>Poskytnuté údaje jsou plně chráněny a nejsou poskytovány třetím stranám.</p>
+            </div>
+            <div class="mt-6 text-right">
+                <button @click="gdprModal = false" class="px-4 py-2 bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-semibold transition">Rozumím</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Vanta.js Initialization Script -->
+    <script>
+        VANTA.CELLS({
+          el: "#vanta-bg",
+          mouseControls: true,
+          touchControls: true,
+          gyroControls: false,
+          minHeight: 200.00,
+          minWidth: 200.00,
+          scale: 1.00,
+          size: 1.30,
+          color1: 0x16a34a,
+          color2: 0xf0fdf4,
+          backgroundColor: 0xf8fafc
+        })
+    </script>
+
+</body>
+</html>
